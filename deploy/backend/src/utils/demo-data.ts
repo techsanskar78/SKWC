@@ -204,12 +204,12 @@ export const demoTestimonials: Testimonial[] = [];
 
 export const demoSettings: SiteSettings = {
   business_name: 'Shri Krishna Wedding Collection',
-  phone: '+91 90000 00000',
+  phone: '+91 83195 58820',
   whatsapp_number: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919000000000',
   email: 'hello@shrikrishnawedding.com',
-  address: 'Showroom address — update in the SETTINGS sheet',
+  address: 'Dana Oli, New sarafa Dana Oli, Daulat Ganj, Gwalior, Madhya Pradesh 474001',
   google_maps_url: '',
-  business_hours: '11:00 AM – 8:00 PM',
+  business_hours: '11:00 AM – 9:00 PM',
   instagram_url: '',
   facebook_url: '',
   linkedin_url: '',

@@ -152,14 +152,6 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/book-appointment"
-              prefetch
-              onClick={() => setPendingHref('/book-appointment')}
-              className="hidden md:inline-flex btn-primary !px-4 !py-2 lg:!px-5 lg:!py-2.5 text-[11px] tracking-[0.16em] whitespace-nowrap"
-            >
-              Book Appointment
-            </Link>
             <button
               aria-label="Toggle menu"
               className={cn(
@@ -197,9 +189,6 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
                 {link.label}
               </Link>
             ))}
-            <Link href="/book-appointment" onClick={() => { setOpen(false); setPendingHref('/book-appointment'); }} className="btn-primary mt-4 text-center">
-              Book Appointment
-            </Link>
           </nav>
         </div>
       </header>
