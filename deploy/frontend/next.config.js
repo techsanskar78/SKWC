@@ -31,6 +31,17 @@ const nextConfig = {
   compress: true,
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    serverComponentsExternalPackages: ['googleapis', 'zod'],
+  },
+  webpack: (config) => {
+    const frontendModules = path.join(__dirname, 'node_modules');
+    config.resolve.modules = [frontendModules, ...(config.resolve.modules || ['node_modules'])];
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      googleapis: path.join(frontendModules, 'googleapis'),
+      zod: path.join(frontendModules, 'zod'),
+    };
+    return config;
   },
   onDemandEntries: {
     maxInactiveAge: 60 * 60 * 1000,
