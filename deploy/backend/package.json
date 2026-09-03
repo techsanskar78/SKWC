@@ -1,0 +1,28 @@
+{
+  "name": "skwc-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./drive": "./src/utils/drive.ts",
+    "./models": "./src/models/index.ts"
+  },
+  "scripts": {
+    "dev": "tsc --watch --noEmit",
+    "build": "tsc --noEmit",
+    "start": "echo The HTTP API is served by Next.js. Start the site with: cd ../frontend && npm run start"
+  },
+  "dependencies": {
+    "googleapis": "140.0.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.11",
+    "typescript": "5.5.4"
+  },
+  "peerDependencies": {
+    "next": "14.2.35"
+  }
+}

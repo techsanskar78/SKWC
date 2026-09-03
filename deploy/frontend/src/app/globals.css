@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory text-charcoal antialiased overflow-x-hidden;
+  }
+  img, video, svg, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+  input, select, textarea {
+    font-size: 16px;
+  }
+  @media (min-width: 640px) {
+    input, select, textarea {
+      font-size: 14px;
+    }
+  }
+  ::selection {
+    @apply bg-maroon text-ivory;
+  }
+}
+
+@layer utilities {
+  .container-wide {
+    @apply mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12;
+  }
+  .page-pad {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+  .eyebrow {
+    @apply text-[10px] sm:text-xs tracking-widest2 uppercase text-gold font-medium;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-maroon text-ivory px-5 py-3 text-[11px] sm:px-7 sm:py-3.5 sm:text-sm tracking-wide uppercase transition-colors hover:bg-burgundy;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border border-charcoal/30 text-charcoal px-5 py-3 text-[11px] sm:px-7 sm:py-3.5 sm:text-sm tracking-wide uppercase transition-colors hover:border-maroon hover:text-maroon;
+  }
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-5 py-3 text-[11px] sm:px-7 sm:py-3.5 sm:text-sm tracking-wide uppercase transition-colors hover:brightness-95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes cta-shimmer {
+  0% { transform: translateX(-20%); }
+  100% { transform: translateX(420%); }
+}
+
+.cta-shimmer {
+  animation: cta-shimmer 7s ease-in-out infinite;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.hero-kenburns {
+  animation: kenburns 8s linear forwards;
+  will-change: transform;
+}
+
+@keyframes nav-progress {
+  0% { transform: scaleX(0.12); }
+  70% { transform: scaleX(0.78); }
+  100% { transform: scaleX(0.92); }
+}
+
+.nav-progress {
+  transform-origin: left center;
+  animation: nav-progress 0.7s ease-out forwards;
+}
