@@ -121,9 +121,10 @@ async function loadSettings(): Promise<SiteSettings> {
   if (!isSheetsConfigured()) return demoSettings;
   try {
     const sheets = getSheetsClient();
+    const tab = await resolveTab('SETTINGS');
     const res = await withTimeout(sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'SETTINGS!A2:B50',
+      range: `'${tab.replace(/'/g, "''")}'!A2:B50`,
     }));
     const rows = (res.data.values as string[][]) || [];
     const map = Object.fromEntries(rows.map(([k, v]) => [k, v]));
@@ -157,11 +158,43 @@ const cachedSettings = unstable_cache(loadSettings, ['skwc-settings'], { revalid
 
 // ---- low level row helpers -------------------------------------------------
 
+async function resolveTab(wanted: string): Promise<string> {
+  const sheets = getSheetsClient();
+  const meta = await withTimeout(
+    sheets.spreadsheets.get({
+      spreadsheetId: SPREADSHEET_ID,
+      fields: 'sheets.properties.title',
+    })
+  );
+  const titles = (meta.data.sheets || [])
+    .map((s) => s.properties?.title)
+    .filter((t): t is string => Boolean(t));
+
+  const exact = titles.find((t) => t === wanted);
+  if (exact) return exact;
+  const ignoreCase = titles.find((t) => t.toLowerCase() === wanted.toLowerCase());
+  if (ignoreCase) return ignoreCase;
+
+  if (wanted.toUpperCase() === 'TESTIMONIALS') {
+    for (const title of titles) {
+      const header = await sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: `'${title.replace(/'/g, "''")}'!A1:Z1`,
+      });
+      const row = (header.data.values?.[0] || []).map((c) => String(c).toLowerCase().trim());
+      if (row.includes('customer_name') && row.includes('testimonial')) return title;
+    }
+  }
+
+  throw new Error(`Missing sheet tab ${wanted}`);
+}
+
 async function readSheet(tab: string): Promise<string[][]> {
   const sheets = getSheetsClient();
+  const actual = await resolveTab(tab);
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
-    range: `${tab}!A2:Z10000`,
+    range: `'${actual.replace(/'/g, "''")}'!A2:Z10000`,
   });
   return (res.data.values as string[][]) || [];
 }
@@ -401,7 +434,7 @@ export const GoogleSheetsService = {
 
   // TESTIMONIALS
   async getTestimonials(): Promise<Testimonial[]> {
-    return cachedTestimonials();
+    return loadTestimonials();
   },
 
   // GALLERY
