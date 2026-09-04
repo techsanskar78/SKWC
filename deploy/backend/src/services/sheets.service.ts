@@ -97,10 +97,12 @@ async function loadTestimonials(): Promise<Testimonial[]> {
   if (!isSheetsConfigured()) return demoTestimonials;
   try {
     const rows = await withTimeout(readSheet('TESTIMONIALS'));
-    return rows.filter((r) => r[0] && r[5] === 'active').map(rowToTestimonial)
+    return rows
+      .filter((r) => r[0] && testimonialStatus(r) === 'active')
+      .map(rowToTestimonial)
       .sort((a, b) => a.display_order - b.display_order);
   } catch {
-    return demoTestimonials;
+    return [];
   }
 }
 
@@ -271,10 +273,21 @@ function appointmentToRow(a: Appointment): (string | number)[] {
   ];
 }
 
+function testimonialStatus(r: string[]) {
+  const status = (r.length >= 7 ? r[5] : r[4] || r[5] || '').toString().trim().toLowerCase();
+  return status;
+}
+
 function rowToTestimonial(r: string[]): Testimonial {
+  const hasImageCol = r.length >= 7;
   return {
-    id: r[0], customer_name: r[1], testimonial: r[2], rating: Number(r[3] || 5),
-    image: toImg(r[4] || ''), status: (r[5] as any) || 'active', display_order: Number(r[6] || 0),
+    id: r[0],
+    customer_name: r[1],
+    testimonial: r[2],
+    rating: Number(r[3] || 5),
+    image: toImg(hasImageCol ? r[4] || '' : ''),
+    status: (hasImageCol ? r[5] : r[4] || 'active') as Testimonial['status'],
+    display_order: Number(hasImageCol ? r[6] : r[5] || 0),
   };
 }
 
