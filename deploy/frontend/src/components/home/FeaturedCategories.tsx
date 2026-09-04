@@ -3,7 +3,8 @@ import SmartImage from '@/components/ui/SmartImage';
 import { Category } from '@/types';
 
 export default function FeaturedCategories({ categories }: { categories: Category[] }) {
-  if (!categories.length) return null;
+  const visible = categories.filter((c) => c.slug !== 'party-wear');
+  if (!visible.length) return null;
 
   return (
     <section className="container-wide py-12 sm:py-16 lg:py-20">
@@ -12,7 +13,7 @@ export default function FeaturedCategories({ categories }: { categories: Categor
         <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl mt-2">Curated Categories</h2>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {categories.map((c) => (
+        {visible.map((c) => (
           <Link key={c.id} href={`/collections/${c.slug}`} className="group relative aspect-[3/4] overflow-hidden block">
             {c.image && (
               <SmartImage

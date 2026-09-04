@@ -200,16 +200,60 @@ export const demoGallery: GalleryItem[] = [
   { id: '8', title: 'Rose Pink Rental', category: 'Collections', image_url: '/images/rental.jpg', display_order: 8, status: 'active' },
 ];
 
-export const demoTestimonials: Testimonial[] = [];
+export const demoTestimonials: Testimonial[] = [
+  {
+    id: '1',
+    customer_name: 'Vanshika Agnihotri',
+    testimonial:
+      'I took my engagement outfit from here, and it was so amazing. The look felt special from the moment I tried it on.',
+    rating: 5,
+    status: 'active',
+    display_order: 1,
+  },
+  {
+    id: '2',
+    customer_name: 'Ruchi Sengar',
+    testimonial:
+      'I loved the lehenga. The quality is awesome and the service is also amazing — exactly what I wanted for my wedding look.',
+    rating: 5,
+    status: 'active',
+    display_order: 2,
+  },
+  {
+    id: '3',
+    customer_name: 'Payal Talreja',
+    testimonial:
+      'Awesome collection and affordable prices. Beautiful pieces without feeling overpriced.',
+    rating: 5,
+    status: 'active',
+    display_order: 3,
+  },
+  {
+    id: '4',
+    customer_name: 'Richa Khandelwal',
+    testimonial: 'Best collections in Gwalior. The bridal range is stunning — truly worth the visit.',
+    rating: 5,
+    status: 'active',
+    display_order: 4,
+  },
+  {
+    id: '5',
+    customer_name: 'Soniya Chaudhary',
+    testimonial: 'Beautiful bridal collection. Every piece felt festive, elegant and ready for the big day.',
+    rating: 5,
+    status: 'active',
+    display_order: 5,
+  },
+];
 
 export const demoSettings: SiteSettings = {
   business_name: 'Shri Krishna Wedding Collection',
-  phone: '+91 83195 58820',
+  phone: '+91 90000 00000',
   whatsapp_number: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919000000000',
   email: 'hello@shrikrishnawedding.com',
-  address: 'Dana Oli, New sarafa Dana Oli, Daulat Ganj, Gwalior, Madhya Pradesh 474001',
+  address: 'Showroom address — update in the SETTINGS sheet',
   google_maps_url: '',
-  business_hours: '11:00 AM – 9:00 PM',
+  business_hours: '11:00 AM – 8:00 PM',
   instagram_url: '',
   facebook_url: '',
   linkedin_url: '',

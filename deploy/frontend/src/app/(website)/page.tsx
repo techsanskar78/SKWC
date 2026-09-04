@@ -23,7 +23,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero headline={settings.homepage_headline} subtitle={settings.homepage_subtitle} whatsappNumber={settings.whatsapp_number} />
+      <Hero headline={settings.homepage_headline} subtitle={settings.homepage_subtitle} />
       <FeaturedCategories categories={categories} />
       <NewArrivals products={newArrivals.length ? newArrivals : active} />
       <BridalSection />

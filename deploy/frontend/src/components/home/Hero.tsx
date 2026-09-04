@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SmartImage from '@/components/ui/SmartImage';
-import { whatsappLink, homepageWhatsAppMessage } from '@/lib/whatsapp';
 import { cn } from '@/utils';
 
 const SLIDE_MS = 4000;
@@ -36,11 +35,9 @@ const SLIDES = [
 export default function Hero({
   headline,
   subtitle,
-  whatsappNumber,
 }: {
   headline: string;
   subtitle: string;
-  whatsappNumber: string;
 }) {
   const slides = [
     { ...SLIDES[0], headline: headline || SLIDES[0].headline, subtitle: subtitle || SLIDES[0].subtitle },
@@ -119,11 +116,6 @@ export default function Hero({
           <Link href="/book-appointment" className="btn-outline w-full sm:w-auto !border-ivory/50 !text-ivory hover:!border-ivory">
             Book an Appointment
           </Link>
-          {whatsappNumber && (
-            <a href={whatsappLink(whatsappNumber, homepageWhatsAppMessage)} target="_blank" rel="noreferrer" className="btn-whatsapp w-full sm:w-auto">
-              Chat on WhatsApp
-            </a>
-          )}
         </div>
       </div>
 
