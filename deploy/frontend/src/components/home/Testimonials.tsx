@@ -1,8 +1,10 @@
 import { Star } from 'lucide-react';
+import { demoTestimonials } from 'skwc-backend';
 import { Testimonial } from '@/types';
 
 export default function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
-  const featured = testimonials.filter((t) => t.status === 'active').slice(0, 5);
+  const fromProps = testimonials.filter((t) => t.status === 'active');
+  const featured = (fromProps.length ? fromProps : demoTestimonials).slice(0, 5);
   if (!featured.length) return null;
 
   return (

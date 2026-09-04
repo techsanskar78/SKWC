@@ -30,7 +30,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react'],
     serverComponentsExternalPackages: ['googleapis', 'zod'],
   },
   webpack: (config) => {

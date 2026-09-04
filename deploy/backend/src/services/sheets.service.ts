@@ -97,12 +97,18 @@ async function loadTestimonials(): Promise<Testimonial[]> {
   if (!isSheetsConfigured()) return demoTestimonials;
   try {
     const rows = await withTimeout(readSheet('TESTIMONIALS'));
-    return rows
+    const fromSheet = rows
       .filter((r) => r[0] && testimonialStatus(r) === 'active')
       .map(rowToTestimonial)
       .sort((a, b) => a.display_order - b.display_order);
+    if (fromSheet.length >= 5) return fromSheet;
+    const names = new Set(fromSheet.map((t) => t.customer_name.trim().toLowerCase()));
+    const fillers = demoTestimonials.filter(
+      (t) => !names.has(t.customer_name.trim().toLowerCase())
+    );
+    return [...fromSheet, ...fillers].slice(0, 5);
   } catch {
-    return [];
+    return demoTestimonials;
   }
 }
 
@@ -152,7 +158,7 @@ async function loadSettings(): Promise<SiteSettings> {
 
 const cachedProducts = unstable_cache(loadProducts, ['skwc-products'], { revalidate: SHEETS_REVALIDATE });
 const cachedCategories = unstable_cache(loadCategories, ['skwc-categories'], { revalidate: SHEETS_REVALIDATE });
-const cachedTestimonials = unstable_cache(loadTestimonials, ['skwc-testimonials'], { revalidate: SHEETS_REVALIDATE });
+const cachedTestimonials = unstable_cache(loadTestimonials, ['skwc-testimonials-v2'], { revalidate: SHEETS_REVALIDATE });
 const cachedGallery = unstable_cache(loadGallery, ['skwc-gallery'], { revalidate: SHEETS_REVALIDATE });
 const cachedSettings = unstable_cache(loadSettings, ['skwc-settings'], { revalidate: SHEETS_REVALIDATE });
 
@@ -434,7 +440,7 @@ export const GoogleSheetsService = {
 
   // TESTIMONIALS
   async getTestimonials(): Promise<Testimonial[]> {
-    return loadTestimonials();
+    return cachedTestimonials();
   },
 
   // GALLERY

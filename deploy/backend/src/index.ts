@@ -8,6 +8,7 @@ export {
   isDriveImage,
   toDisplayImageUrl,
 } from './utils/drive';
+export { demoTestimonials } from './utils/demo-data';
 export type {
   Product,
   Category,
