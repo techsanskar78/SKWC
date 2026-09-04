@@ -62,59 +62,89 @@ const TESTIMONIALS_HEADER = ['id', 'customer_name', 'testimonial', 'rating', 'im
 const GALLERY_HEADER = ['id', 'title', 'category', 'image_url', 'description', 'display_order', 'status'];
 
 const SHEETS_REVALIDATE = 180;
+const SHEETS_TIMEOUT_MS = 8000;
+
+function withTimeout<T>(promise: Promise<T>, ms = SHEETS_TIMEOUT_MS): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error('Google Sheets request timed out')), ms);
+    }),
+  ]);
+}
 
 async function loadProducts(): Promise<Product[]> {
   if (!isSheetsConfigured()) return demoProducts;
-  const rows = await readSheet('PRODUCTS');
-  return rows.filter((r) => r[0]).map(rowToProduct);
+  try {
+    const rows = await withTimeout(readSheet('PRODUCTS'));
+    return rows.filter((r) => r[0]).map(rowToProduct);
+  } catch {
+    return demoProducts;
+  }
 }
 
 async function loadCategories(): Promise<Category[]> {
   if (!isSheetsConfigured()) return demoCategories;
-  const rows = await readSheet('CATEGORIES');
-  return rows.filter((r) => r[0]).map(rowToCategory).sort((a, b) => a.display_order - b.display_order);
+  try {
+    const rows = await withTimeout(readSheet('CATEGORIES'));
+    return rows.filter((r) => r[0]).map(rowToCategory).sort((a, b) => a.display_order - b.display_order);
+  } catch {
+    return demoCategories;
+  }
 }
 
 async function loadTestimonials(): Promise<Testimonial[]> {
   if (!isSheetsConfigured()) return demoTestimonials;
-  const rows = await readSheet('TESTIMONIALS');
-  return rows.filter((r) => r[0] && r[5] === 'active').map(rowToTestimonial)
-    .sort((a, b) => a.display_order - b.display_order);
+  try {
+    const rows = await withTimeout(readSheet('TESTIMONIALS'));
+    return rows.filter((r) => r[0] && r[5] === 'active').map(rowToTestimonial)
+      .sort((a, b) => a.display_order - b.display_order);
+  } catch {
+    return demoTestimonials;
+  }
 }
 
 async function loadGallery(): Promise<GalleryItem[]> {
   if (!isSheetsConfigured()) return demoGallery;
-  const rows = await readSheet('GALLERY');
-  return rows.filter((r) => r[0] && r[6] === 'active').map(rowToGallery)
-    .sort((a, b) => a.display_order - b.display_order);
+  try {
+    const rows = await withTimeout(readSheet('GALLERY'));
+    return rows.filter((r) => r[0] && r[6] === 'active').map(rowToGallery)
+      .sort((a, b) => a.display_order - b.display_order);
+  } catch {
+    return demoGallery;
+  }
 }
 
 async function loadSettings(): Promise<SiteSettings> {
   if (!isSheetsConfigured()) return demoSettings;
-  const sheets = getSheetsClient();
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: 'SETTINGS!A2:B50',
-  });
-  const rows = (res.data.values as string[][]) || [];
-  const map = Object.fromEntries(rows.map(([k, v]) => [k, v]));
-  return {
-    business_name: map.business_name || demoSettings.business_name,
-    phone: map.phone || '',
-    whatsapp_number: map.whatsapp_number || demoSettings.whatsapp_number,
-    email: map.email || '',
-    address: map.address || '',
-    google_maps_url: map.google_maps_url || '',
-    business_hours: map.business_hours || '',
-    instagram_url: map.instagram_url || '',
-    facebook_url: map.facebook_url || '',
-    linkedin_url: map.linkedin_url || '',
-    google_url: map.google_url || '',
-    logo: map.logo || '',
-    favicon: map.favicon || '',
-    homepage_headline: map.homepage_headline || demoSettings.homepage_headline,
-    homepage_subtitle: map.homepage_subtitle || demoSettings.homepage_subtitle,
-  };
+  try {
+    const sheets = getSheetsClient();
+    const res = await withTimeout(sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'SETTINGS!A2:B50',
+    }));
+    const rows = (res.data.values as string[][]) || [];
+    const map = Object.fromEntries(rows.map(([k, v]) => [k, v]));
+    return {
+      business_name: map.business_name || demoSettings.business_name,
+      phone: map.phone || '',
+      whatsapp_number: map.whatsapp_number || demoSettings.whatsapp_number,
+      email: map.email || '',
+      address: map.address || '',
+      google_maps_url: map.google_maps_url || '',
+      business_hours: map.business_hours || '',
+      instagram_url: map.instagram_url || '',
+      facebook_url: map.facebook_url || '',
+      linkedin_url: map.linkedin_url || '',
+      google_url: map.google_url || '',
+      logo: map.logo || '',
+      favicon: map.favicon || '',
+      homepage_headline: map.homepage_headline || demoSettings.homepage_headline,
+      homepage_subtitle: map.homepage_subtitle || demoSettings.homepage_subtitle,
+    };
+  } catch {
+    return demoSettings;
+  }
 }
 
 const cachedProducts = unstable_cache(loadProducts, ['skwc-products'], { revalidate: SHEETS_REVALIDATE });

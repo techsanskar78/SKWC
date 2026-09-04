@@ -5,8 +5,7 @@ import ProductDetailClient from '@/components/ui/ProductDetailClient';
 import { siteUrl } from '@/lib/config';
 
 export async function generateStaticParams() {
-  const products = await GoogleSheetsService.getProducts();
-  return products.map((p) => ({ slug: p.slug }));
+  return [];
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

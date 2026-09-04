@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { GoogleSheetsService } from '@/services/catalogue';
 import { siteUrl } from '@/lib/config';
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, categories] = await Promise.all([
     GoogleSheetsService.getProducts(),

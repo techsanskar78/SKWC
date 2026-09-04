@@ -4,6 +4,7 @@ import WhatsAppButton from '@/components/layout/WhatsAppButton';
 import NavigationProgress from '@/components/layout/NavigationProgress';
 import { GoogleSheetsService } from '@/services/catalogue';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 180;
 
 export default async function WebsiteLayout({ children }: { children: React.ReactNode }) {

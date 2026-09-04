@@ -16,8 +16,7 @@ const HERO_BY_SLUG: Record<string, string> = {
 };
 
 export async function generateStaticParams() {
-  const categories = await GoogleSheetsService.getCategories();
-  return categories.map((c) => ({ category: c.slug }));
+  return [];
 }
 
 export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
