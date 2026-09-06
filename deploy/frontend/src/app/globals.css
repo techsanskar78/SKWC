@@ -63,16 +63,17 @@
 }
 
 .cta-shimmer {
-  animation: none;
+  animation: cta-shimmer 7s ease-in-out infinite;
 }
 
 @keyframes kenburns {
   from { transform: scale(1); }
-  to { transform: scale(1.04); }
+  to { transform: scale(1.08); }
 }
 
 .hero-kenburns {
-  animation: none;
+  animation: kenburns 8s linear forwards;
+  will-change: transform;
 }
 
 @keyframes nav-progress {

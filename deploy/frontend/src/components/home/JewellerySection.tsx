@@ -23,7 +23,7 @@ export default function JewellerySection({ products }: { products: Product[] }) 
             Explore Jewellery
           </Link>
         </div>
-        <ProductGrid products={products.slice(0, 4)} />
+        <ProductGrid products={products.slice(0, 8)} />
         <div className="mt-8 text-center sm:hidden">
           <Link href="/collections/jewellery" className="btn-outline w-full">Explore Jewellery</Link>
         </div>
