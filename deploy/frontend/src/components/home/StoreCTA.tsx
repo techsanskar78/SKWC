@@ -6,20 +6,19 @@ import { whatsappLink, homepageWhatsAppMessage } from '@/lib/whatsapp';
 export default function StoreCTA({ whatsappNumber, mapsUrl }: { whatsappNumber: string; mapsUrl?: string }) {
   return (
     <section className="relative overflow-hidden text-ivory py-16 sm:py-28 px-4 pb-24 sm:pb-28">
-      <div className="absolute inset-0 hero-kenburns">
+      <div className="absolute inset-0">
         <SmartImage
           src="/images/lehenga-gold.jpg"
           alt=""
           fill
           sizes="100vw"
-          quality={60}
+          quality={50}
           className="object-cover object-top"
         />
       </div>
       <div className="absolute inset-0 bg-charcoal/70" />
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/40 to-charcoal/55" />
       <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-soft-light bg-[radial-gradient(ellipse_at_center,rgba(183,138,60,0.35),transparent_65%)]" />
-      <div className="cta-shimmer pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-ivory/15 to-transparent" />
 
       <div className="relative z-10 container-wide text-center">
         <RevealText as="p" text="Visit Us" className="eyebrow text-champagne" />

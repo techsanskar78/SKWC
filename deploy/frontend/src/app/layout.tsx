@@ -6,14 +6,14 @@ import { siteUrl } from '@/lib/config';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  weight: ['400', '600'],
   display: 'swap',
   variable: '--font-serif',
 });
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500'],
   display: 'swap',
   variable: '--font-sans',
 });

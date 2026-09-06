@@ -12,6 +12,8 @@ import SocialBar from '@/components/home/SocialBar';
 import { GoogleSheetsService } from '@/services/catalogue';
 import { JEWELLERY_SLUGS } from '@/lib/trousseau';
 
+export const revalidate = 180;
+
 export default async function HomePage() {
   const [products, categories, testimonials, settings] = await Promise.all([
     GoogleSheetsService.getProducts(),

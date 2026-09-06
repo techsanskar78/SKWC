@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SmartImage from '@/components/ui/SmartImage';
-import { RevealText } from '@/components/ui/RevealText';
 import { cn } from '@/utils';
 
 const SLIDE_MS = 4000;
@@ -80,54 +79,42 @@ export default function Hero({
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
-      {slides.map((item, i) => (
+      {slides.map((item, i) => {
+        const nearby = i === index || i === (index + 1) % slides.length;
+        if (!nearby && i !== 0) return null;
+        return (
         <div
           key={item.src}
           className={cn(
-            'absolute inset-0 transition-opacity duration-700 ease-in-out',
+            'absolute inset-0 transition-opacity duration-500 ease-out',
             i === index ? 'opacity-100' : 'opacity-0'
           )}
         >
-          <div className={cn('absolute inset-0', i === index && 'hero-kenburns')}>
+          <div className="absolute inset-0">
             <SmartImage
               src={item.src}
               alt={item.headline}
               fill
               priority={i === 0}
               sizes="100vw"
-              quality={65}
+              quality={55}
               className="object-cover object-top"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-charcoal/10" />
         </div>
-      ))}
+        );
+      })}
 
       <div className="relative h-full container-wide flex flex-col justify-end pb-24 sm:pb-24 text-ivory min-w-0">
-        <div key={slide.headline}>
-          <RevealText
-            as="p"
-            mode="words"
-            replayKey={slide.headline}
-            text={slide.eyebrow}
-            className="eyebrow text-champagne mb-3 sm:mb-4"
-          />
-          <RevealText
-            as="h1"
-            mode="words"
-            replayKey={slide.headline}
-            delay={0.08}
-            text={slide.headline}
-            className="font-serif text-[1.55rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl max-w-3xl break-words"
-          />
-          <RevealText
-            as="p"
-            mode="words"
-            replayKey={slide.headline}
-            delay={0.22}
-            text={slide.subtitle}
-            className="mt-3 sm:mt-5 max-w-xl text-ivory/85 text-sm sm:text-lg line-clamp-3 sm:line-clamp-none"
-          />
+        <div key={slide.headline} className="reveal-up">
+          <p className="eyebrow text-champagne mb-3 sm:mb-4">{slide.eyebrow}</p>
+          <h1 className="font-serif text-[1.55rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl max-w-3xl break-words">
+            {slide.headline}
+          </h1>
+          <p className="mt-3 sm:mt-5 max-w-xl text-ivory/85 text-sm sm:text-lg line-clamp-3 sm:line-clamp-none">
+            {slide.subtitle}
+          </p>
         </div>
 
         <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-4">

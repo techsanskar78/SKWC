@@ -22,7 +22,7 @@ export default function NewArrivals({ products }: { products: Product[] }) {
           View All New Arrivals
         </Link>
       </div>
-      <ProductGrid products={products.slice(0, 8)} />
+      <ProductGrid products={products.slice(0, 4)} />
       <div className="mt-8 text-center sm:hidden">
         <Link href="/collections?filter=new" className="btn-outline w-full">View All New Arrivals</Link>
       </div>
