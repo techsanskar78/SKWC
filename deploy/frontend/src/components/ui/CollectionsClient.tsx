@@ -79,32 +79,32 @@ export default function CollectionsClient({
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mb-6 min-w-0">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by name, code, category…"
-          className="w-full sm:flex-1 sm:min-w-[220px] border border-charcoal/20 px-4 py-2.5 text-sm bg-transparent"
+          className="w-full min-w-0 sm:flex-1 sm:min-w-[180px] border border-charcoal/20 px-4 py-2.5 text-sm bg-transparent"
         />
-        <div className="flex gap-3">
-          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="flex-1 sm:flex-none border border-charcoal/20 px-3 py-2.5 text-sm bg-ivory">
+        <div className="flex gap-3 min-w-0">
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="min-w-0 flex-1 sm:flex-none border border-charcoal/20 px-3 py-2.5 text-sm bg-ivory">
             <option value="featured">Sort: Featured</option>
             <option value="newest">Sort: Newest</option>
             <option value="price_low">Price: Low to High</option>
             <option value="price_high">Price: High to Low</option>
           </select>
-          <button onClick={() => setFiltersOpen((o) => !o)} className="btn-outline !px-4 !py-2.5 text-xs flex items-center gap-2 whitespace-nowrap">
+          <button onClick={() => setFiltersOpen((o) => !o)} className="btn-outline !px-4 !py-2.5 text-xs flex items-center gap-2 whitespace-nowrap shrink-0">
             <SlidersHorizontal size={14} /> Filters
           </button>
         </div>
       </div>
 
-      <div className={cn('flex flex-wrap gap-3 mb-8', filtersOpen ? 'flex' : 'hidden')}>
-        <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full sm:w-auto border border-charcoal/20 px-3 py-2 text-sm bg-ivory">
+      <div className={cn('flex flex-wrap gap-2.5 sm:gap-3 mb-8', filtersOpen ? 'flex' : 'hidden')}>
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full min-w-0 sm:w-auto border border-charcoal/20 px-3 py-2 text-sm bg-ivory">
           <option value="">All Categories</option>
           {categories.map((c) => <option key={c.id} value={c.slug}>{c.name}</option>)}
         </select>
-        <select value={occasion} onChange={(e) => setOccasion(e.target.value)} className="w-full sm:w-auto border border-charcoal/20 px-3 py-2 text-sm bg-ivory">
+        <select value={occasion} onChange={(e) => setOccasion(e.target.value)} className="w-full min-w-0 sm:w-auto border border-charcoal/20 px-3 py-2 text-sm bg-ivory">
           <option value="">All Occasions</option>
           {occasions.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
@@ -117,7 +117,7 @@ export default function CollectionsClient({
           <button
             key={label}
             onClick={() => set(!value)}
-            className={cn('px-3 py-2 text-sm border', value ? 'bg-maroon text-ivory border-maroon' : 'border-charcoal/20 text-charcoal/70')}
+            className={cn('flex-1 sm:flex-none px-3 py-2 text-sm border min-w-[46%]', value ? 'bg-maroon text-ivory border-maroon' : 'border-charcoal/20 text-charcoal/70')}
           >
             {label}
           </button>

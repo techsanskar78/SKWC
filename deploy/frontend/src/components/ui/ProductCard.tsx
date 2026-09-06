@@ -55,8 +55,8 @@ export default function ProductCard({ product, onQuickView }: { product: Product
       </div>
 
       <div className="mt-2 sm:mt-3 space-y-0.5 sm:space-y-1">
-        <p className="text-[10px] sm:text-[11px] tracking-widest2 uppercase text-charcoal/50">{product.category.replace(/-/g, ' ')}</p>
-        <Link href={`/products/${product.slug}`} className="block font-serif text-sm sm:text-base text-charcoal hover:text-maroon transition-colors leading-snug">
+        <p className="text-[10px] sm:text-[11px] tracking-widest2 uppercase text-charcoal/50 truncate">{product.category.replace(/-/g, ' ')}</p>
+        <Link href={`/products/${product.slug}`} className="block font-serif text-sm sm:text-base text-charcoal hover:text-maroon transition-colors leading-snug line-clamp-2">
           {product.name}
         </Link>
         <p className="text-sm text-charcoal/80">

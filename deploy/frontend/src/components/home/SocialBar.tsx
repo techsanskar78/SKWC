@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
+import { RevealText } from '@/components/ui/RevealText';
 import { SiteSettings } from '@/types';
 
 function GoogleMark({ size = 20 }: { size?: number }) {
@@ -36,7 +37,11 @@ export default function SocialBar({ settings }: { settings: SiteSettings }) {
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <Flourish />
           <p className="eyebrow mt-5">Follow the Collection</p>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl mt-2">See the looks as they arrive</h2>
+          <RevealText
+            as="h2"
+            text="See the looks as they arrive"
+            className="font-serif text-2xl sm:text-3xl lg:text-4xl mt-2"
+          />
           <p className="mt-3 text-sm sm:text-base text-charcoal/60">
             Bridal lehengas, jewellery and wedding stories — follow us for the latest from the showroom.
           </p>

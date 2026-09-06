@@ -10,9 +10,20 @@ const HERO_BY_SLUG: Record<string, string> = {
   'wedding-wear': '/images/gown-ivory.jpg',
   'party-wear': '/images/party-wear.jpg',
   jewellery: '/images/necklace.jpg',
-  'bridal-jewellery': '/images/tikka.jpg',
+  'bridal-jewellery': '/images/bridal-jewellery-set.jpg',
   rental: '/images/rental.jpg',
   sale: '/images/sale.jpg',
+  potli: '/images/potli.jpg',
+  kaleere: '/images/kaleere.jpg',
+  dupatta: '/images/dupatta.jpg',
+  'designer-blouse': '/images/designer-blouse.jpg',
+  'reversible-stone-jewellery': '/images/reversible-stone.jpg',
+  'antique-temple-jewellery': '/images/antique-temple.jpg',
+  'american-diamond-jewellery': '/images/american-diamond.jpg',
+  'nose-ring': '/images/nose-ring.jpg',
+  rings: '/images/rings.jpg',
+  bracelets: '/images/bracelets.jpg',
+  'crop-tops-skirts': '/images/crop-top-skirt.jpg',
 };
 
 export async function generateStaticParams() {

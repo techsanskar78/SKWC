@@ -14,7 +14,7 @@ export default async function WebsiteLayout({ children }: { children: React.Reac
     <>
       <NavigationProgress />
       <Navbar settings={settings} />
-      <main className="min-w-0 overflow-x-hidden">{children}</main>
+      <main className="min-w-0 max-w-[100vw] overflow-x-hidden">{children}</main>
       <Footer settings={settings} />
       <WhatsAppButton number={settings.whatsapp_number} />
     </>

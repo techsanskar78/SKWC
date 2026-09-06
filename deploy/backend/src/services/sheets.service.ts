@@ -8,6 +8,8 @@ import {
   demoGallery,
   demoTestimonials,
   demoSettings,
+  mergeCatalogueCategories,
+  mergeCatalogueProducts,
 } from '../utils/demo-data';
 import {
   Product,
@@ -77,7 +79,7 @@ async function loadProducts(): Promise<Product[]> {
   if (!isSheetsConfigured()) return demoProducts;
   try {
     const rows = await withTimeout(readSheet('PRODUCTS'));
-    return rows.filter((r) => r[0]).map(rowToProduct);
+    return mergeCatalogueProducts(rows.filter((r) => r[0]).map(rowToProduct));
   } catch {
     return demoProducts;
   }
@@ -87,7 +89,9 @@ async function loadCategories(): Promise<Category[]> {
   if (!isSheetsConfigured()) return demoCategories;
   try {
     const rows = await withTimeout(readSheet('CATEGORIES'));
-    return rows.filter((r) => r[0]).map(rowToCategory).sort((a, b) => a.display_order - b.display_order);
+    return mergeCatalogueCategories(
+      rows.filter((r) => r[0]).map(rowToCategory).sort((a, b) => a.display_order - b.display_order)
+    );
   } catch {
     return demoCategories;
   }
@@ -156,8 +160,8 @@ async function loadSettings(): Promise<SiteSettings> {
   }
 }
 
-const cachedProducts = unstable_cache(loadProducts, ['skwc-products'], { revalidate: SHEETS_REVALIDATE });
-const cachedCategories = unstable_cache(loadCategories, ['skwc-categories'], { revalidate: SHEETS_REVALIDATE });
+const cachedProducts = unstable_cache(loadProducts, ['skwc-products-v2'], { revalidate: SHEETS_REVALIDATE });
+const cachedCategories = unstable_cache(loadCategories, ['skwc-categories-v2'], { revalidate: SHEETS_REVALIDATE });
 const cachedTestimonials = unstable_cache(loadTestimonials, ['skwc-testimonials-v2'], { revalidate: SHEETS_REVALIDATE });
 const cachedGallery = unstable_cache(loadGallery, ['skwc-gallery'], { revalidate: SHEETS_REVALIDATE });
 const cachedSettings = unstable_cache(loadSettings, ['skwc-settings'], { revalidate: SHEETS_REVALIDATE });

@@ -44,6 +44,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               { label: 'Home', href: '/' },
               { label: 'Collections', href: '/collections' },
               { label: 'Jewellery', href: '/collections/jewellery' },
+              { label: 'Accessories', href: '/accessories' },
               { label: 'Rental', href: '/rental' },
               { label: 'Sale', href: '/sale' },
               { label: 'Gallery', href: '/gallery' },
@@ -77,7 +78,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           </ul>
         </div>
       </div>
-      <div className="border-t border-ivory/10 py-6 pb-20 sm:pb-6 text-center text-xs text-ivory/40 px-4">
+      <div className="border-t border-ivory/10 py-6 pb-24 sm:pb-6 text-center text-xs text-ivory/40 px-4">
         © {new Date().getFullYear()} {settings.business_name}. All rights reserved.
       </div>
     </footer>

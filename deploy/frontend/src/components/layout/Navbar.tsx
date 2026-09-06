@@ -13,6 +13,7 @@ const LINKS = [
   { href: '/collections', label: 'Collections' },
   { href: '/collections/bridal-lehengas', label: 'Lehengas' },
   { href: '/collections/jewellery', label: 'Jewellery' },
+  { href: '/accessories', label: 'Accessories' },
   { href: '/rental', label: 'Rental' },
   { href: '/sale', label: 'Sale' },
   { href: '/gallery', label: 'Gallery' },
@@ -35,7 +36,8 @@ function isOverlayPage(pathname: string) {
     pathname === '/rental' ||
     pathname === '/sale' ||
     pathname === '/gallery' ||
-    pathname === '/book-appointment'
+    pathname === '/book-appointment' ||
+    pathname === '/accessories'
   ) {
     return true;
   }
@@ -110,7 +112,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               </span>
               <span
                 className={cn(
-                  'text-[9px] sm:text-[10px] lg:text-[11px] tracking-[0.18em] sm:tracking-[0.22em] uppercase transition-colors',
+                  'text-[9px] sm:text-[10px] lg:text-[11px] tracking-[0.14em] sm:tracking-[0.22em] uppercase truncate transition-colors',
                   overHero ? 'text-champagne' : 'text-gold'
                 )}
               >
@@ -119,7 +121,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             </span>
           </Link>
 
-          <nav className="hidden xl:flex items-center gap-6">
+          <nav className="hidden 2xl:flex items-center gap-4 min-w-0">
             {LINKS.map((link) => {
               const active = isActive(currentPath, link.href);
               return (
@@ -129,7 +131,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
                   prefetch
                   onClick={() => setPendingHref(link.href)}
                   className={cn(
-                    'relative text-[12px] tracking-[0.16em] uppercase transition-colors pb-1 outline-none',
+                    'relative text-[11px] tracking-[0.14em] uppercase transition-colors pb-1 outline-none whitespace-nowrap',
                     overHero
                       ? active
                         ? 'text-ivory'
@@ -155,7 +157,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <button
               aria-label="Toggle menu"
               className={cn(
-                'xl:hidden p-2 -mr-1 min-h-11 min-w-11 inline-flex items-center justify-center transition-colors',
+                '2xl:hidden p-2 -mr-1 min-h-11 min-w-11 inline-flex items-center justify-center transition-colors',
                 overHero ? 'text-ivory' : 'text-charcoal'
               )}
               onClick={() => setOpen((o) => !o)}
@@ -167,8 +169,8 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
 
         <div
           className={cn(
-            'xl:hidden overflow-hidden transition-[max-height] duration-300',
-            open ? 'max-h-[80vh] overflow-y-auto bg-ivory' : 'max-h-0'
+            '2xl:hidden overflow-hidden transition-[max-height] duration-300',
+            open ? 'max-h-[min(80vh,640px)] overflow-y-auto bg-ivory' : 'max-h-0'
           )}
         >
           <nav className="flex flex-col px-5 py-3 pb-[max(1rem,env(safe-area-inset-bottom))]">

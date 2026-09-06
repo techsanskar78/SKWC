@@ -63,7 +63,7 @@ export default function EnquiryModal({ product, onClose }: { product: Product | 
         ) : (
           <>
             <p className="eyebrow">Enquire about</p>
-            <h3 className="font-serif text-xl mt-1 mb-6">{product.name}</h3>
+            <h3 className="font-serif text-xl mt-1 mb-6 pr-6 break-words">{product.name}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input name="name" required placeholder="Your Name" className="w-full border border-charcoal/20 px-4 py-3 text-sm bg-transparent" />
               <input name="mobile" required placeholder="Mobile Number" className="w-full border border-charcoal/20 px-4 py-3 text-sm bg-transparent" />

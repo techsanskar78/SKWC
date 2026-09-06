@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SmartImage from '@/components/ui/SmartImage';
+import { RevealText } from '@/components/ui/RevealText';
 import { cn } from '@/utils';
 
 const SLIDE_MS = 4000;
@@ -63,7 +64,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative h-[100svh] min-h-[560px] max-h-[900px] w-full overflow-hidden"
+      className="relative h-[100svh] min-h-[520px] max-h-[900px] w-full overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => {
@@ -102,13 +103,31 @@ export default function Hero({
         </div>
       ))}
 
-      <div className="relative h-full container-wide flex flex-col justify-end pb-20 sm:pb-24 text-ivory">
-        <div key={slide.headline} className="transition-opacity duration-500">
-          <p className="eyebrow text-champagne mb-3 sm:mb-4">{slide.eyebrow}</p>
-          <h1 className="font-serif text-[1.7rem] leading-tight sm:text-5xl lg:text-6xl max-w-3xl">
-            {slide.headline}
-          </h1>
-          <p className="mt-3 sm:mt-5 max-w-xl text-ivory/85 text-sm sm:text-lg">{slide.subtitle}</p>
+      <div className="relative h-full container-wide flex flex-col justify-end pb-24 sm:pb-24 text-ivory min-w-0">
+        <div key={slide.headline}>
+          <RevealText
+            as="p"
+            mode="words"
+            replayKey={slide.headline}
+            text={slide.eyebrow}
+            className="eyebrow text-champagne mb-3 sm:mb-4"
+          />
+          <RevealText
+            as="h1"
+            mode="words"
+            replayKey={slide.headline}
+            delay={0.08}
+            text={slide.headline}
+            className="font-serif text-[1.55rem] leading-tight sm:text-4xl md:text-5xl lg:text-6xl max-w-3xl break-words"
+          />
+          <RevealText
+            as="p"
+            mode="words"
+            replayKey={slide.headline}
+            delay={0.22}
+            text={slide.subtitle}
+            className="mt-3 sm:mt-5 max-w-xl text-ivory/85 text-sm sm:text-lg line-clamp-3 sm:line-clamp-none"
+          />
         </div>
 
         <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-4">
@@ -123,7 +142,7 @@ export default function Hero({
         type="button"
         aria-label="Previous slide"
         onClick={() => go(index - 1)}
-        className="flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ivory/30 bg-charcoal/30 text-ivory backdrop-blur-sm hover:bg-charcoal/50 transition"
+        className="hidden sm:flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ivory/30 bg-charcoal/30 text-ivory backdrop-blur-sm hover:bg-charcoal/50 transition"
       >
         <ChevronLeft size={18} />
       </button>
@@ -131,7 +150,7 @@ export default function Hero({
         type="button"
         aria-label="Next slide"
         onClick={() => go(index + 1)}
-        className="flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ivory/30 bg-charcoal/30 text-ivory backdrop-blur-sm hover:bg-charcoal/50 transition"
+        className="hidden sm:flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ivory/30 bg-charcoal/30 text-ivory backdrop-blur-sm hover:bg-charcoal/50 transition"
       >
         <ChevronRight size={18} />
       </button>

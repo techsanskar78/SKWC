@@ -41,7 +41,7 @@ export default function ProductDetailClient({ product, settings }: { product: Pr
       <div>
         <p className="eyebrow">{product.category.replace(/-/g, ' ')}</p>
         <div className="flex items-start justify-between gap-4 mt-2">
-          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl leading-tight">{product.name}</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl leading-tight break-words min-w-0">{product.name}</h1>
           <button aria-label="Toggle wishlist" onClick={() => toggle(product.id)} className="shrink-0 p-2 border border-charcoal/20">
             <Heart size={18} className={isWishlisted(product.id) ? 'fill-maroon text-maroon' : ''} />
           </button>
